@@ -1,0 +1,90 @@
+<html>
+    <head>
+        <style type ="text/css">
+            #table{
+                width:60%;
+                height:80%;
+                margin-left: 20%;
+                border:1px solid blue;
+                text-align: center;
+            }
+            #toDoList{
+                text-align:center;
+                color:aquamarine;
+            }
+
+            #toDoList_Table,#toDoList_Table td,#toDoList_Table tr{
+                text-align: center;
+            }
+
+            #toDoList_Table td{
+                border:1px solid red;
+            }
+
+            li input[type= "checkbox"]:checked + input[type="text"]{
+                text-decoration: line-through;
+            }
+
+
+        </style>
+
+        <script type="text/javascript">
+
+            function addFunction(){
+                var content=document.getElementById("content").value;
+                var ul = document.getElementById("ul");
+                
+                var li = document.createElement("li")
+                var input1=document.createElement("input");
+                input1.setAttribute("type","checkbox");
+                input1.id="textbox";
+                var input2=document.createElement("input");
+                input2.setAttribute("type","text");
+                input2.value=content;
+
+                var button=document.createElement("button");
+                button.innerText="delete";
+                button.onclick=function(){
+                    document.getElementById("ul").removeChild(event.srcElement.parentElement);
+                }
+
+                var data=document.createElement("input");
+                
+                data.setAttribute("type","data")
+
+                
+                li.appendChild(input1);
+                li.appendChild(input2);
+                li.appendChild(document.createTextNode("  Due"));
+                li.appendChild(data);
+                li.appendChild(button);
+
+                ul.appendChild(li);
+
+
+            }
+
+        </script>
+    </head>
+
+    <body>
+        <div id="table">
+            <div id="toDoList"><h2>To Do List</h2></div>
+            <div id="addPlace">
+                What do you want to add today
+                <input type="text" id="content" size=40>
+                <button id="ADD" onclick="addFunction()">ADD</button>
+            </div>
+
+
+            <div id="to_do_list_div">
+               <ul id ="ul">
+
+
+               </ul>
+            </div>
+        </div>
+    </body>
+
+
+</html> 
