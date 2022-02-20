@@ -1,90 +1,138 @@
 <html>
-    <head>
-        <style type ="text/css">
-            #table{
-                width:60%;
-                height:80%;
-                margin-left: 20%;
-                border:1px solid blue;
-                text-align: center;
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style type="text/css">
+        #table {
+            width: 60%;
+            height: 80%;
+            margin-left: 20%;
+            border: 1px solid blue;
+        }
+
+        #toDoList {
+            text-align: center;
+            color: aquamarine;
+        }
+
+
+        #toDoList_Table td {
+            border: 1px solid red;
+        }
+
+        li input[type="checkbox"]:checked+input[type="text"] {
+            text-decoration: line-through;
+        }
+
+        li {
+            border-width: 0 0 2px 0;
+            border-style: solid;
+            border-color: black;
+            margin-top: 10px;
+        }
+
+        #addPlace {
+            margin-left: 2%;
+        }
+    </style>
+
+    <script type="text/javascript">
+
+        function addFunction() {
+            var content = document.getElementById("content").value;
+            var ul = document.getElementById("ul");
+            var li = document.createElement("li");
+            
+            var checkbox = document.createElement("input");
+            checkbox.setAttribute("type", "checkbox");
+        
+            var contentBox = document.createElement("input");
+            contentBox.setAttribute("type", "text");
+            contentBox.value = content;
+
+            var deleteLineButton = document.createElement("button");
+            deleteLineButton.innerText = "delete";
+            deleteLineButton.classList="btn btn-danger";
+            deleteLineButton.onclick = function () {
+                document.getElementById("ul").removeChild(event.srcElement.parentElement);
             }
-            #toDoList{
-                text-align:center;
-                color:aquamarine;
-            }
 
-            #toDoList_Table,#toDoList_Table td,#toDoList_Table tr{
-                text-align: center;
-            }
-
-            #toDoList_Table td{
-                border:1px solid red;
-            }
-
-            li input[type= "checkbox"]:checked + input[type="text"]{
-                text-decoration: line-through;
-            }
-
-
-        </style>
-
-        <script type="text/javascript">
-
-            function addFunction(){
-                var content=document.getElementById("content").value;
-                var ul = document.getElementById("ul");
-                
-                var li = document.createElement("li")
-                var input1=document.createElement("input");
-                input1.setAttribute("type","checkbox");
-                input1.id="textbox";
-                var input2=document.createElement("input");
-                input2.setAttribute("type","text");
-                input2.value=content;
-
-                var button=document.createElement("button");
-                button.innerText="delete";
-                button.onclick=function(){
-                    document.getElementById("ul").removeChild(event.srcElement.parentElement);
-                }
-
-                var data=document.createElement("input");
-                
-                data.setAttribute("type","data")
-
-                
-                li.appendChild(input1);
-                li.appendChild(input2);
+            var due = document.createElement("button");
+            due.innerText = "Add Due data";
+            due.classList="btn btn-link";
+            due.onclick = function () {
+                due.disabled = true;
+                var data = document.createElement("input");
+                data.setAttribute("type", "date");
                 li.appendChild(document.createTextNode("  Due"));
                 li.appendChild(data);
-                li.appendChild(button);
 
-                ul.appendChild(li);
-
-
+                var deleteButton = document.createElement("button");
+                deleteButton.innerText = "delete data";
+                deleteButton.onclick = function () {
+                    var li = event.srcElement.parentElement;
+                    li.removeChild(li.lastChild);
+                    li.removeChild(li.lastChild);
+                    li.removeChild(li.lastChild);
+                    li.lastElementChild.disabled = false;
+                }
+                li.appendChild(deleteButton);
             }
 
-        </script>
-    </head>
-
-    <body>
-        <div id="table">
-            <div id="toDoList"><h2>To Do List</h2></div>
-            <div id="addPlace">
-                What do you want to add today
-                <input type="text" id="content" size=40>
-                <button id="ADD" onclick="addFunction()">ADD</button>
-            </div>
+            var priority = document.createElement("select");
 
 
-            <div id="to_do_list_div">
-               <ul id ="ul">
+            function createOption(color, text) {
+                var option = document.createElement("option");
+                option.style.color = color;
+                option.innerText = text;
 
+                return option;
+            }
 
-               </ul>
-            </div>
+            priority.appendChild(createOption("black", "normal"));
+            priority.appendChild(createOption("red", "high"));
+            priority.appendChild(createOption("green", "low"));
+            priority.appendChild(createOption("yellow", "middle"));
+            priority.selectedIndex = 0;
+
+            priority.onchange = function () {
+                var select = event.srcElement;
+                var selectColor = select.options[select.selectedIndex].style.color;
+                select.style.color = selectColor;
+                select.nextElementSibling.nextElementSibling.style.color = selectColor;
+            }
+
+            li.appendChild(priority);
+            li.appendChild(checkbox);
+            li.appendChild(contentBox);
+            li.appendChild(deleteLineButton);
+            li.appendChild(due);
+
+            ul.appendChild(li);
+        }
+
+    </script>
+</head>
+
+<body>
+    <div id="table">
+        <div id="toDoList">
+            <h2>To Do List</h2>
         </div>
-    </body>
+        <div id="addPlace">
+            What do you want to add today
+            <input type="text" id="content" size=40>
+            <button id="ADD" onclick="addFunction()">ADD</button>
+        </div>
 
 
-</html> 
+        <div id="to_do_list_div">
+            <ul id="ul">
+
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>
