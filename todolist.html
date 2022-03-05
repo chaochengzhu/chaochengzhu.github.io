@@ -81,16 +81,17 @@
 
             content = content.trim();
 
-            var contentBox = document.createElement("input");
-            contentBox.setAttribute("type", "text");
-            contentBox.value = content;
-
             var ul = document.getElementById("ul");
 
-            if (ul.childElementCount > 8) {
+            if (ul.childElementCount > 10) {
                 alert("exceed bound")
                 return;
             }
+
+
+            var contentBox = document.createElement("input");
+            contentBox.setAttribute("type", "text");
+            contentBox.value = content;
 
             for (var i = 0; i < ul.childElementCount; i++) {
                 if (ul.children[i].children[2].value == content) {
