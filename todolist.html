@@ -65,25 +65,45 @@
             border: 0;
         }
 
-        li button{
-            margin-right:3px;
+        li button {
+            margin-right: 3px;
         }
     </style>
 
     <script type="text/javascript">
 
         function addFunction() {
-
             var content = document.getElementById("content").value;
+
+            if (content.replaceAll(" ", "").length == 0) {
+                return;
+            }
+
+            content = content.trim();
+
+            var contentBox = document.createElement("input");
+            contentBox.setAttribute("type", "text");
+            contentBox.value = content;
+
             var ul = document.getElementById("ul");
+
+            if (ul.childElementCount > 8) {
+                alert("exceed bound")
+                return;
+            }
+
+            for (var i = 0; i < ul.childElementCount; i++) {
+                if (ul.children[i].children[2].value == content) {
+                    return;
+                }
+            }
+
             var li = document.createElement("li");
 
             var checkbox = document.createElement("input");
             checkbox.setAttribute("type", "checkbox");
 
-            var contentBox = document.createElement("input");
-            contentBox.setAttribute("type", "text");
-            contentBox.value = content;
+
             contentBox.setAttribute("title", contentBox.value);
 
             var deleteLineButton = document.createElement("button");
@@ -127,6 +147,8 @@
 
                 return option;
             }
+
+
 
             priority.appendChild(createOption("black", "normal"));
             priority.appendChild(createOption("red", "high"));
