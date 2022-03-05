@@ -6,7 +6,7 @@
     <style type="text/css">
         #table {
             width: 60%;
-            height: 80%;
+            height: 90%;
             margin-left: 20%;
             border: 1px solid blue;
         }
@@ -88,10 +88,10 @@
                 return;
             }
 
-
             var contentBox = document.createElement("input");
             contentBox.setAttribute("type", "text");
             contentBox.value = content;
+            contentBox.setAttribute("title", contentBox.value);
 
             for (var i = 0; i < ul.childElementCount; i++) {
                 if (ul.children[i].children[2].value == content) {
@@ -104,16 +104,11 @@
             var checkbox = document.createElement("input");
             checkbox.setAttribute("type", "checkbox");
 
-
-            contentBox.setAttribute("title", contentBox.value);
-
             var deleteLineButton = document.createElement("button");
             deleteLineButton.innerText = "delete";
             deleteLineButton.classList = "btn btn-danger";
             deleteLineButton.onclick = function () {
                 document.getElementById("ul").removeChild(event.srcElement.parentElement);
-                var complete = document.getElementById("complete");
-                complete.value++;
             }
 
             var due = document.createElement("button");
@@ -123,6 +118,7 @@
                 due.disabled = true;
                 var data = document.createElement("input");
                 data.setAttribute("type", "date");
+
                 li.appendChild(document.createTextNode("  Due"));
                 li.appendChild(data);
 
@@ -140,7 +136,6 @@
 
             var priority = document.createElement("select");
 
-
             function createOption(color, text) {
                 var option = document.createElement("option");
                 option.style.color = color;
@@ -148,8 +143,6 @@
 
                 return option;
             }
-
-
 
             priority.appendChild(createOption("black", "normal"));
             priority.appendChild(createOption("red", "high"));
