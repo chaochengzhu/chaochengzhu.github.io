@@ -44,6 +44,8 @@
 
         li input[type="text"] {
             border-style: hidden;
+            width:650px;
+            margin-right:20px;
         }
 
         li select {
@@ -68,6 +70,7 @@
         li button {
             margin-right: 3px;
         }
+
     </style>
 
     <script type="text/javascript">
@@ -76,6 +79,7 @@
             var content = document.getElementById("content").value;
 
             if (content.replaceAll(" ", "").length == 0) {
+                alert("you must write something");
                 return;
             }
 
@@ -89,12 +93,13 @@
             }
 
             var contentBox = document.createElement("input");
+            contentBox.value=content;
             contentBox.setAttribute("type", "text");
-            contentBox.value = content;
             contentBox.setAttribute("title", contentBox.value);
 
             for (var i = 0; i < ul.childElementCount; i++) {
                 if (ul.children[i].children[2].value == content) {
+                    alert("you have a repeated list, please check again")
                     return;
                 }
             }
@@ -119,7 +124,7 @@
                 var data = document.createElement("input");
                 data.setAttribute("type", "date");
 
-                li.appendChild(document.createTextNode("  Due"));
+                li.appendChild(document.createTextNode("  Due: "));
                 li.appendChild(data);
 
                 var deleteButton = document.createElement("button");
